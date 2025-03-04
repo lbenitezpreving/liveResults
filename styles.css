@@ -1,0 +1,1015 @@
+:root {
+    --primary-color: #2e8b57; /* Verde tenis */
+    --secondary-color: #f8f8f8;
+    --accent-color: #ffcc00; /* Amarillo pelota de tenis */
+    --dark-color: #333;
+    --light-color: #fff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    
+    /* Colores para F1 */
+    --f1-primary: #e10600; /* Rojo F1 */
+    --f1-secondary: #15151e; /* Azul oscuro F1 */
+    --f1-accent: #ffffff; /* Blanco */
+    --f1-grid: #f2f2f2; /* Gris claro para tablas */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Menú de deportes */
+.sports-menu {
+    width: 250px;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    padding: 1.5rem 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.menu-header i {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+    color: var(--accent-color);
+}
+
+.menu-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sports-menu ul {
+    list-style: none;
+}
+
+.sport-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.sport-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sport-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-left-color: var(--accent-color);
+}
+
+.sport-item i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sport-item span {
+    font-weight: 500;
+}
+
+/* Contenedor principal */
+.content-wrapper {
+    flex: 1;
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: calc(100vh - 120px); /* Altura del footer aproximada */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Secciones de deportes */
+.sport-section {
+    display: none;
+    width: 100%;
+}
+
+.sport-section.active {
+    display: block;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#f1-section header {
+    background-color: var(--f1-primary);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-container i {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+#f1-section .logo-container i {
+    color: var(--f1-accent);
+}
+
+header h1 {
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+nav li {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+nav li:hover, nav li.active {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+}
+
+#f1-section nav li:hover, #f1-section nav li.active {
+    background-color: var(--f1-accent);
+    color: var(--f1-primary);
+}
+
+/* Main Content Styles */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilos para Tenis */
+.tournament-banner {
+    background: linear-gradient(135deg, var(--primary-color), #1a5e3a);
+    color: var(--light-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.tournament-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.tournament-banner h2, .tournament-banner p {
+    position: relative;
+    z-index: 1;
+}
+
+.tournament-banner h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.matches-container {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.loading i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.match-card {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.match-header {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tournament-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tournament-name i {
+    color: var(--accent-color);
+}
+
+.match-status {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.match-content {
+    padding: 1.5rem;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.player-flag {
+    width: 30px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.player-name {
+    flex: 1;
+    font-weight: 600;
+}
+
+.player-score {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.match-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.match-info i {
+    margin-right: 0.3rem;
+}
+
+/* Estilos para Fórmula 1 */
+.race-banner {
+    background: linear-gradient(135deg, var(--f1-primary), #990000);
+    color: var(--light-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.race-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1504707748692-419802cf939d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.race-banner h2, .race-banner p {
+    position: relative;
+    z-index: 1;
+}
+
+.race-banner h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.race-info-container {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.race-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.race-title {
+    flex: 1;
+}
+
+.race-title h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--f1-primary);
+}
+
+.race-status {
+    display: inline-block;
+    background-color: var(--f1-primary);
+    color: var(--light-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.race-circuit {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.race-circuit img {
+    max-width: 200px;
+    border-radius: var(--border-radius);
+    border: 2px solid #eee;
+}
+
+.circuit-info p {
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.circuit-info i {
+    color: var(--f1-primary);
+    margin-right: 0.5rem;
+    width: 20px;
+    text-align: center;
+}
+
+.race-visualization {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.track-container {
+    background-color: var(--f1-grid);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    position: relative;
+}
+
+.track-svg-container {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 1rem;
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#track-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.track-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.car-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.race-standings {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.race-standings h3 {
+    margin-bottom: 1rem;
+    color: var(--f1-primary);
+    font-size: 1.3rem;
+}
+
+.standings-container {
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.standings-table th {
+    background-color: var(--f1-secondary);
+    color: var(--light-color);
+    padding: 0.8rem 0.5rem;
+    text-align: left;
+    position: sticky;
+    top: 0;
+}
+
+.standings-table td {
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.standings-table tr:hover td {
+    background-color: rgba(225, 6, 0, 0.05);
+}
+
+.race-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stats-card {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-top: 4px solid var(--f1-primary);
+}
+
+.stats-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    color: #666;
+}
+
+.stats-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--f1-primary);
+}
+
+.stats-card .stat-driver, .stats-card .stat-info {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.driver-focus {
+    background-color: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.driver-focus h3 {
+    margin-bottom: 1.5rem;
+    color: var(--f1-primary);
+    font-size: 1.3rem;
+}
+
+.driver-focus-content {
+    display: grid;
+    grid-template-columns: auto 1fr 2fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.driver-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--f1-primary);
+}
+
+.driver-info h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.driver-info p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.driver-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+}
+
+.driver-stat {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.driver-stat .stat-label {
+    color: #666;
+}
+
+.driver-stat .stat-value {
+    font-weight: 600;
+}
+
+.driver-telemetry {
+    background-color: var(--f1-grid);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.driver-telemetry h5 {
+    margin-bottom: 1rem;
+    color: var(--f1-primary);
+}
+
+#telemetry-chart {
+    width: 100%;
+    height: 200px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--light-color);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    max-width: 800px;
+    width: 90%;
+    box-shadow: var(--shadow);
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #777;
+    transition: color 0.3s;
+}
+
+.close-button:hover {
+    color: var(--dark-color);
+}
+
+#match-details {
+    margin-top: 1rem;
+}
+
+.match-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.match-detail-tournament {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.match-detail-tournament i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.match-detail-tournament h3 {
+    font-size: 1.5rem;
+}
+
+.match-detail-status {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.match-detail-players {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.match-detail-player {
+    flex: 1;
+    text-align: center;
+}
+
+.player-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--primary-color);
+}
+
+.player-detail-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.player-country {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: #777;
+}
+
+.player-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.match-score-details {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.set-scores {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.set-header {
+    text-align: center;
+    font-weight: 600;
+    padding: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-radius: 4px;
+}
+
+.player-row {
+    display: contents;
+}
+
+.player-name-cell {
+    padding: 0.5rem;
+    font-weight: 600;
+}
+
+.score-cell {
+    text-align: center;
+    padding: 0.5rem;
+    background-color: var(--light-color);
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.current-set {
+    background-color: var(--accent-color);
+}
+
+.match-stats-title {
+    margin: 2rem 0 1rem;
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.stat-label {
+    text-align: center;
+    font-weight: 600;
+}
+
+.stat-bar-container {
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-bar-p1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+.stat-bar-p2 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background-color: var(--accent-color);
+}
+
+.stat-value {
+    text-align: center;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 2rem;
+    text-align: center;
+    margin-top: auto;
+    margin-left: 0;
+    width: 100%;
+    position: relative;
+    clear: both;
+}
+
+@media (min-width: 769px) {
+    footer {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: var(--light-color);
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--accent-color);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .race-visualization {
+        grid-template-columns: 1fr;
+    }
+    
+    .race-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .driver-focus-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .driver-image {
+        text-align: center;
+    }
+}
+
+@media (max-width: 992px) {
+    .race-header {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .race-circuit {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    
+    .sports-menu {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1rem;
+    }
+    
+    .menu-header {
+        padding: 0 0 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .sports-menu ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .sport-item {
+        padding: 0.8rem;
+        border-left: none;
+        border-radius: var(--border-radius);
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+    
+    .sport-item.active {
+        background-color: var(--accent-color);
+        color: var(--dark-color);
+    }
+    
+    .sport-item i {
+        margin-right: 0.5rem;
+    }
+    
+    .content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    footer {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .matches-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .match-detail-players {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .set-scores {
+        grid-template-columns: 2fr repeat(3, 1fr);
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .race-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .race-circuit {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .circuit-info {
+        text-align: center;
+    }
+} 
