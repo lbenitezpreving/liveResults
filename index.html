@@ -93,6 +93,8 @@
                         <li class="active" data-race="current">Carrera Actual</li>
                         <li data-race="upcoming">Próximas</li>
                         <li data-race="results">Resultados</li>
+                        <li data-race="drivers">Pilotos</li>
+                        <li data-race="circuits">Circuitos</li>
                         <li data-race="standings">Clasificación</li>
                     </ul>
                 </nav>
@@ -227,6 +229,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="race-content" id="race-results" style="display: none;">
+                    <h3>Resultados de la última carrera</h3>
+                    <div class="results-container">
+                        <div class="loading-indicator">Cargando resultados...</div>
+                    </div>
+                </div>
+
+                <div class="race-content" id="race-drivers" style="display: none;">
+                    <h3>Pilotos de Fórmula 1</h3>
+                    <div class="drivers-container">
+                        <div class="loading-indicator">Cargando información de pilotos...</div>
+                        <div class="drivers-grid"></div>
+                    </div>
+                </div>
+
+                <div class="race-content" id="race-circuits" style="display: none;">
+                    <h3>Circuitos de Fórmula 1</h3>
+                    <div class="circuits-container">
+                        <div class="loading-indicator">Cargando información de circuitos...</div>
+                        <div class="circuits-grid"></div>
+                    </div>
+                </div>
+
+                <div class="race-content" id="race-standings" style="display: none;">
+                </div>
             </main>
         </div>
 
@@ -245,5 +273,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
     <script src="f1.js"></script>
+    <script src="f1api.js"></script>
 </body>
 </html> 
