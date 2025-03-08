@@ -101,4 +101,4 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más 
 
 ---
 
-Desarrollado con ❤️ por [Tu Nombre]
+Desarrollado con ❤️ por Leo Benítez
