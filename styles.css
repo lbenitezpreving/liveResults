@@ -1205,4 +1205,36 @@ footer {
     height: 20px;
     border-radius: 50%;
     margin-right: 0.5rem;
+}
+
+/* Estilos para las opciones de filtro */
+.filter-options {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--light-color);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.filter-checkbox:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.filter-checkbox input {
+    margin-right: 0.5rem;
+}
+
+/* Estilos para los partidos filtrados */
+.match-card.filtered {
+    display: none;
 } 

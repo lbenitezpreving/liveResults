@@ -1,8 +1,8 @@
-// Variables globales
-let MATCHES_GRID;
 let MATCH_MODAL;
 let MATCH_DETAILS;
 let CLOSE_BUTTON;
+let SHOW_COMPLETED_CHECKBOX;
+let SHOW_COMPLETED_MATCHES = false; // Por defecto, no mostrar partidos finalizados
 
 // Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     MATCH_MODAL = document.getElementById('match-modal');
     MATCH_DETAILS = document.getElementById('match-details');
     CLOSE_BUTTON = document.querySelector('.close-button');
+    SHOW_COMPLETED_CHECKBOX = document.getElementById('show-completed-matches');
+    
+    console.log('Checkbox encontrado:', SHOW_COMPLETED_CHECKBOX);
     
     // Inicializar la sección de tenis
     initTennis();
@@ -70,6 +73,9 @@ async function buscarPartidosAlcaraz() {
         document.querySelector('.tournament-banner h2').textContent = 'Partidos de Carlos Alcaraz';
         document.querySelector('.tournament-banner p').textContent = 'Últimos partidos y próximos encuentros';
         
+        // Aplicar filtro de partidos finalizados
+        applyMatchesFilter();
+        
     } catch (error) {
         console.error('Error al cargar los partidos de Alcaraz:', error);
         document.querySelector('#tennis-section .loading').style.display = 'none';
@@ -90,6 +96,11 @@ function createAlcarazMatchCard(match) {
     if (match.status === 'completed') {
         statusClass = 'completed';
         statusText = 'Finalizado';
+        
+        // Aplicar filtro si es necesario
+        if (!SHOW_COMPLETED_MATCHES) {
+            card.classList.add('filtered');
+        }
     } else if (match.status === 'live') {
         statusClass = 'live';
         statusText = 'En Vivo';
@@ -378,6 +389,21 @@ function initTennis() {
         });
     }
     
+    // Evento para el checkbox de mostrar partidos finalizados
+    if (SHOW_COMPLETED_CHECKBOX) {
+        console.log('Añadiendo evento al checkbox');
+        SHOW_COMPLETED_CHECKBOX.addEventListener('change', function() {
+            console.log('Checkbox cambiado:', this.checked);
+            SHOW_COMPLETED_MATCHES = this.checked;
+            applyMatchesFilter();
+        });
+        
+        // Asegurarse de que el checkbox esté en su estado inicial correcto
+        SHOW_COMPLETED_CHECKBOX.checked = SHOW_COMPLETED_MATCHES;
+    } else {
+        console.error('Checkbox no encontrado');
+    }
+    
     // Evento para cerrar el modal
     if (CLOSE_BUTTON) {
         CLOSE_BUTTON.addEventListener('click', function() {
@@ -391,6 +417,59 @@ function initTennis() {
             MATCH_MODAL.style.display = 'none';
         }
     });
+}
+
+// Aplicar filtro a los partidos
+function applyMatchesFilter() {
+    console.log('Aplicando filtro. Mostrar finalizados:', SHOW_COMPLETED_MATCHES);
+    
+    // Obtener todos los partidos
+    const matchCards = document.querySelectorAll('.match-card');
+    console.log('Total de partidos:', matchCards.length);
+    
+    let completedCount = 0;
+    let visibleCount = 0;
+    
+    // Aplicar filtro a cada partido
+    matchCards.forEach(card => {
+        const statusElement = card.querySelector('.match-status');
+        const isCompleted = statusElement && statusElement.classList.contains('completed');
+        
+        if (isCompleted) {
+            completedCount++;
+        }
+        
+        // Si el partido está finalizado y no se deben mostrar los finalizados, ocultarlo
+        if (isCompleted && !SHOW_COMPLETED_MATCHES) {
+            card.classList.add('filtered');
+        } else {
+            card.classList.remove('filtered');
+            visibleCount++;
+        }
+    });
+    
+    console.log('Partidos finalizados:', completedCount);
+    console.log('Partidos visibles después del filtro:', visibleCount);
+    
+    // Mostrar mensaje si no hay partidos visibles
+    const visibleMatches = document.querySelectorAll('.match-card:not(.filtered)');
+    if (visibleMatches.length === 0) {
+        // Si no hay partidos visibles, mostrar mensaje
+        const noMatchesElement = document.querySelector('.no-matches') || document.createElement('div');
+        noMatchesElement.className = 'no-matches';
+        noMatchesElement.textContent = 'No hay partidos disponibles con los filtros actuales.';
+        
+        // Si el elemento no existe, añadirlo al grid
+        if (!document.querySelector('.no-matches')) {
+            MATCHES_GRID.appendChild(noMatchesElement);
+        }
+    } else {
+        // Si hay partidos visibles, eliminar mensaje si existe
+        const noMatchesElement = document.querySelector('.no-matches');
+        if (noMatchesElement) {
+            noMatchesElement.remove();
+        }
+    }
 }
 
 // Datos de ejemplo para partidos de Carlos Alcaraz
@@ -654,4 +733,15 @@ const SAMPLE_ALCARAZ_MATCHES = [
 window.TennisAPI = {
     showAlcarazMatchDetails,
     buscarPartidosAlcaraz
-}; 
+};
+
+// Función para manejar el evento onclick del checkbox
+function toggleCompletedMatches(checked) {
+    console.log('toggleCompletedMatches llamado con:', checked);
+    SHOW_COMPLETED_MATCHES = checked;
+    applyMatchesFilter();
+}
+
+// Añadir la función al objeto window para que sea accesible desde el HTML
+window.toggleCompletedMatches = toggleCompletedMatches; 
+
