@@ -30,32 +30,22 @@ function formatMatchTime(timeString) {
 
 // Función para buscar partidos de Carlos Alcaraz
 async function buscarPartidosAlcaraz() {
-    const API_KEY = 'tu_api_key'; // Reemplazar con tu API key real
-    const API_HOST = 'api-tennis.p.rapidapi.com';
-    
     try {
         // Mostrar indicador de carga
         MATCHES_GRID.innerHTML = '';
         document.querySelector('#tennis-section .loading').style.display = 'flex';
         
-        // Configuración de la petición a la API
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': API_KEY,
-                'X-RapidAPI-Host': API_HOST
-            }
-        };
+        let data;
         
-        // Simulamos un retraso para mostrar la carga (en producción, esto se eliminaría)
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // En un entorno real, haríamos la petición a la API
-        // const response = await fetch('https://api-tennis.p.rapidapi.com/players/player/213/matches/last/0', options);
-        // const data = await response.json();
-        
-        // Para desarrollo, usamos datos de ejemplo
-        const data = SAMPLE_ALCARAZ_MATCHES;
+        try {
+            // Intentar obtener datos de la API real
+            data = await TennisAPI.getPlayerMatches('alcaraz', 10);
+            console.log('Datos obtenidos de la API:', data);
+        } catch (apiError) {
+            console.warn('Error al obtener datos de la API, usando datos de ejemplo:', apiError);
+            // Si hay un error con la API, usar datos de ejemplo como fallback
+            data = SAMPLE_ALCARAZ_MATCHES;
+        }
         
         // Ocultar indicador de carga
         document.querySelector('#tennis-section .loading').style.display = 'none';
@@ -907,32 +897,22 @@ window.toggleCompletedMatches = toggleCompletedMatches;
 
 // Función para buscar partidos de Paula Badosa
 async function buscarPartidosBadosa() {
-    const API_KEY = 'tu_api_key'; // Reemplazar con tu API key real
-    const API_HOST = 'api-tennis.p.rapidapi.com';
-    
     try {
         // Mostrar indicador de carga
         MATCHES_GRID.innerHTML = '';
         document.querySelector('#tennis-section .loading').style.display = 'flex';
         
-        // Configuración de la petición a la API
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': API_KEY,
-                'X-RapidAPI-Host': API_HOST
-            }
-        };
+        let data;
         
-        // Simulamos un retraso para mostrar la carga (en producción, esto se eliminaría)
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // En un entorno real, haríamos la petición a la API
-        // const response = await fetch('https://api-tennis.p.rapidapi.com/players/player/214/matches/last/0', options);
-        // const data = await response.json();
-        
-        // Para desarrollo, usamos datos de ejemplo
-        const data = SAMPLE_BADOSA_MATCHES;
+        try {
+            // Intentar obtener datos de la API real
+            data = await TennisAPI.getPlayerMatches('badosa', 10);
+            console.log('Datos obtenidos de la API:', data);
+        } catch (apiError) {
+            console.warn('Error al obtener datos de la API, usando datos de ejemplo:', apiError);
+            // Si hay un error con la API, usar datos de ejemplo como fallback
+            data = SAMPLE_BADOSA_MATCHES;
+        }
         
         // Ocultar indicador de carga
         document.querySelector('#tennis-section .loading').style.display = 'none';
