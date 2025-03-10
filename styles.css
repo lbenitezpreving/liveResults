@@ -236,6 +236,7 @@ main {
     background-position: center;
     opacity: 0.2;
     z-index: 0;
+    pointer-events: none;
 }
 
 .tournament-banner h2, .tournament-banner p {
@@ -1327,6 +1328,8 @@ footer {
     margin-top: 1rem;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    z-index: 5;
 }
 
 .filter-checkbox {
@@ -1339,6 +1342,7 @@ footer {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .filter-checkbox:hover {
@@ -1347,6 +1351,17 @@ footer {
 
 .filter-checkbox input {
     margin-right: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    width: 16px;
+    height: 16px;
+    opacity: 1;
+}
+
+.filter-checkbox span {
+    position: relative;
+    z-index: 5;
 }
 
 /* Estilos para los partidos filtrados */

@@ -382,41 +382,31 @@ function renderDetailedAlcarazScore(score, isAlcarazPlayer1) {
 
 // Inicializar la sección de tenis
 function initTennis() {
-    // Cargar partidos de Alcaraz directamente al iniciar
+    console.log('Inicializando sección de tenis');
+    
+    // Cargar partidos de Alcaraz automáticamente al iniciar
     buscarPartidosAlcaraz();
     
-    // Evento para el botón de Carlos Alcaraz
-    const alcarazButton = document.getElementById('alcaraz-button');
-    if (alcarazButton) {
-        alcarazButton.addEventListener('click', function() {
-            // Buscar partidos de Alcaraz
-            buscarPartidosAlcaraz();
+    // Inicializar eventos
+    document.getElementById('alcaraz-button').addEventListener('click', function() {
+        buscarPartidosAlcaraz();
+    });
+    
+    // Inicializar eventos del modal
+    CLOSE_BUTTON.addEventListener('click', function() {
+        MATCH_MODAL.style.display = 'none';
+    });
+    
+    // Inicializar evento del checkbox
+    const checkbox = document.getElementById('show-completed-matches');
+    if (checkbox) {
+        checkbox.addEventListener('change', function() {
+            console.log('Checkbox changed:', this.checked);
+            toggleCompletedMatches(this.checked);
         });
     }
     
-    // Evento para el checkbox de mostrar partidos finalizados
-    if (SHOW_COMPLETED_CHECKBOX) {
-        console.log('Añadiendo evento al checkbox');
-        SHOW_COMPLETED_CHECKBOX.addEventListener('change', function() {
-            console.log('Checkbox cambiado:', this.checked);
-            SHOW_COMPLETED_MATCHES = this.checked;
-            applyMatchesFilter();
-        });
-        
-        // Asegurarse de que el checkbox esté en su estado inicial correcto
-        SHOW_COMPLETED_CHECKBOX.checked = SHOW_COMPLETED_MATCHES;
-    } else {
-        console.error('Checkbox no encontrado');
-    }
-    
-    // Evento para cerrar el modal
-    if (CLOSE_BUTTON) {
-        CLOSE_BUTTON.addEventListener('click', function() {
-            MATCH_MODAL.style.display = 'none';
-        });
-    }
-    
-    // Cerrar el modal al hacer clic fuera del contenido
+    // Cerrar el modal al hacer clic fuera de él
     window.addEventListener('click', function(event) {
         if (event.target === MATCH_MODAL) {
             MATCH_MODAL.style.display = 'none';
@@ -747,6 +737,6 @@ function toggleCompletedMatches(checked) {
     applyMatchesFilter();
 }
 
-// Añadir la función al objeto window para que sea accesible desde el HTML
+// Asegurarse de que la función esté disponible globalmente
 window.toggleCompletedMatches = toggleCompletedMatches; 
 
