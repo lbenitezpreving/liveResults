@@ -195,6 +195,11 @@ function renderAlcarazScore(score, player) {
         html += `<span class="current-game ${gameClass}">${score.currentGame[player]} ${serverIcon}</span>`;
     }
     
+    // Si no hay puntaje, mostrar un guión
+    if (!html) {
+        html = '<span class="no-score">-</span>';
+    }
+    
     return html;
 }
 
