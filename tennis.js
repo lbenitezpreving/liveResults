@@ -4,6 +4,9 @@ let CLOSE_BUTTON;
 let SHOW_COMPLETED_CHECKBOX;
 let SHOW_COMPLETED_MATCHES = false; // Por defecto, no mostrar partidos finalizados
 
+// Variables para controlar el jugador activo
+let CURRENT_PLAYER = 'alcaraz'; // Por defecto, Carlos Alcaraz
+
 // Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las referencias a elementos del DOM
@@ -387,9 +390,24 @@ function initTennis() {
     // Cargar partidos de Alcaraz automáticamente al iniciar
     buscarPartidosAlcaraz();
     
-    // Inicializar eventos
-    document.getElementById('alcaraz-button').addEventListener('click', function() {
-        buscarPartidosAlcaraz();
+    // Inicializar eventos de los botones de jugadores
+    const alcarazButton = document.getElementById('alcaraz-button');
+    const badosaButton = document.getElementById('badosa-button');
+    
+    alcarazButton.addEventListener('click', function() {
+        if (CURRENT_PLAYER !== 'alcaraz') {
+            CURRENT_PLAYER = 'alcaraz';
+            updateActivePlayerButton();
+            buscarPartidosAlcaraz();
+        }
+    });
+    
+    badosaButton.addEventListener('click', function() {
+        if (CURRENT_PLAYER !== 'badosa') {
+            CURRENT_PLAYER = 'badosa';
+            updateActivePlayerButton();
+            buscarPartidosBadosa();
+        }
     });
     
     // Inicializar eventos del modal
@@ -412,6 +430,20 @@ function initTennis() {
             MATCH_MODAL.style.display = 'none';
         }
     });
+}
+
+// Función para actualizar el botón del jugador activo
+function updateActivePlayerButton() {
+    const alcarazButton = document.getElementById('alcaraz-button');
+    const badosaButton = document.getElementById('badosa-button');
+    
+    if (CURRENT_PLAYER === 'alcaraz') {
+        alcarazButton.classList.add('active');
+        badosaButton.classList.remove('active');
+    } else {
+        alcarazButton.classList.remove('active');
+        badosaButton.classList.add('active');
+    }
 }
 
 // Aplicar filtro a los partidos
@@ -724,6 +756,139 @@ const SAMPLE_ALCARAZ_MATCHES = [
     }
 ];
 
+// Datos de ejemplo para partidos de Badosa
+const SAMPLE_BADOSA_MATCHES = [
+    {
+        id: 'b1',
+        tournament: {
+            name: 'WTA Madrid',
+            surface: 'Clay'
+        },
+        round: 'Cuartos de Final',
+        court: 'Pista Central',
+        startTime: '2023-05-03T14:00:00',
+        status: 'completed',
+        player1: {
+            name: 'Paula Badosa',
+            country: 'España',
+            countryCode: 'ES',
+            ranking: 3,
+            seed: 2
+        },
+        player2: {
+            name: 'Aryna Sabalenka',
+            country: 'Bielorrusia',
+            countryCode: 'BY',
+            ranking: 7,
+            seed: 8
+        },
+        score: {
+            sets: [
+                { player1: 6, player2: 2 },
+                { player1: 3, player2: 6 },
+                { player1: 2, player2: 6 }
+            ],
+            currentSet: 3
+        }
+    },
+    {
+        id: 'b2',
+        tournament: {
+            name: 'WTA Roma',
+            surface: 'Clay'
+        },
+        round: 'Segunda Ronda',
+        court: 'Campo 1',
+        startTime: '2023-05-12T11:30:00',
+        status: 'completed',
+        player1: {
+            name: 'Paula Badosa',
+            country: 'España',
+            countryCode: 'ES',
+            ranking: 3,
+            seed: 2
+        },
+        player2: {
+            name: 'Coco Gauff',
+            country: 'Estados Unidos',
+            countryCode: 'US',
+            ranking: 15,
+            seed: 15
+        },
+        score: {
+            sets: [
+                { player1: 6, player2: 4 },
+                { player1: 6, player2: 3 }
+            ],
+            currentSet: 2
+        }
+    },
+    {
+        id: 'b3',
+        tournament: {
+            name: 'Roland Garros',
+            surface: 'Clay'
+        },
+        round: 'Tercera Ronda',
+        court: 'Philippe Chatrier',
+        startTime: '2023-06-02T13:00:00',
+        status: 'live',
+        player1: {
+            name: 'Paula Badosa',
+            country: 'España',
+            countryCode: 'ES',
+            ranking: 3,
+            seed: 2
+        },
+        player2: {
+            name: 'Iga Swiatek',
+            country: 'Polonia',
+            countryCode: 'PL',
+            ranking: 1,
+            seed: 1
+        },
+        score: {
+            sets: [
+                { player1: 4, player2: 6 },
+                { player1: 6, player2: 4 },
+                { player1: 3, player2: 2 }
+            ],
+            currentSet: 3,
+            currentGame: {
+                player1: '30',
+                player2: '15',
+                server: 'player1'
+            }
+        }
+    },
+    {
+        id: 'b4',
+        tournament: {
+            name: 'Wimbledon',
+            surface: 'Grass'
+        },
+        round: 'Primera Ronda',
+        court: 'Court 1',
+        startTime: '2023-07-03T12:00:00',
+        status: 'upcoming',
+        player1: {
+            name: 'Paula Badosa',
+            country: 'España',
+            countryCode: 'ES',
+            ranking: 3,
+            seed: 2
+        },
+        player2: {
+            name: 'Emma Raducanu',
+            country: 'Reino Unido',
+            countryCode: 'GB',
+            ranking: 12,
+            seed: 10
+        },
+        score: null
+    }
+];
+
 // Añadir la función buscarPartidosAlcaraz al objeto TennisAPI
 window.TennisAPI = {
     showAlcarazMatchDetails,
@@ -738,5 +903,280 @@ function toggleCompletedMatches(checked) {
 }
 
 // Asegurarse de que la función esté disponible globalmente
-window.toggleCompletedMatches = toggleCompletedMatches; 
+window.toggleCompletedMatches = toggleCompletedMatches;
+
+// Función para buscar partidos de Paula Badosa
+async function buscarPartidosBadosa() {
+    const API_KEY = 'tu_api_key'; // Reemplazar con tu API key real
+    const API_HOST = 'api-tennis.p.rapidapi.com';
+    
+    try {
+        // Mostrar indicador de carga
+        MATCHES_GRID.innerHTML = '';
+        document.querySelector('#tennis-section .loading').style.display = 'flex';
+        
+        // Configuración de la petición a la API
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': API_KEY,
+                'X-RapidAPI-Host': API_HOST
+            }
+        };
+        
+        // Simulamos un retraso para mostrar la carga (en producción, esto se eliminaría)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // En un entorno real, haríamos la petición a la API
+        // const response = await fetch('https://api-tennis.p.rapidapi.com/players/player/214/matches/last/0', options);
+        // const data = await response.json();
+        
+        // Para desarrollo, usamos datos de ejemplo
+        const data = SAMPLE_BADOSA_MATCHES;
+        
+        // Ocultar indicador de carga
+        document.querySelector('#tennis-section .loading').style.display = 'none';
+        
+        // Mostrar mensaje si no hay partidos
+        if (!data || data.length === 0) {
+            MATCHES_GRID.innerHTML = '<div class="no-matches">No hay partidos disponibles para Paula Badosa en este momento.</div>';
+            return;
+        }
+        
+        // Renderizar partidos
+        data.forEach(match => {
+            const matchCard = createBadosaMatchCard(match);
+            MATCHES_GRID.appendChild(matchCard);
+        });
+        
+        // Actualizar el banner del torneo
+        document.querySelector('.tournament-banner h2').textContent = 'Partidos de Paula Badosa';
+        document.querySelector('.tournament-banner p').textContent = 'Últimos partidos y próximos encuentros';
+        
+        // Aplicar filtro de partidos finalizados
+        applyMatchesFilter();
+        
+    } catch (error) {
+        console.error('Error al cargar los partidos de Badosa:', error);
+        document.querySelector('#tennis-section .loading').style.display = 'none';
+        MATCHES_GRID.innerHTML = '<div class="error-message">Error al cargar los partidos. Por favor, intenta de nuevo más tarde.</div>';
+    }
+}
+
+// Crear tarjeta de partido para Badosa
+function createBadosaMatchCard(match) {
+    const card = document.createElement('div');
+    card.className = 'match-card';
+    card.setAttribute('data-match-id', match.id);
+    
+    // Determinar el estado del partido
+    let statusClass = '';
+    let statusText = '';
+    
+    if (match.status === 'completed') {
+        statusClass = 'completed';
+        statusText = 'Finalizado';
+        
+        // Aplicar filtro si es necesario
+        if (!SHOW_COMPLETED_MATCHES) {
+            card.classList.add('filtered');
+        }
+    } else if (match.status === 'live') {
+        statusClass = 'live';
+        statusText = 'En Vivo';
+    } else {
+        statusClass = 'upcoming';
+        statusText = 'Próximamente';
+    }
+    
+    // Determinar si Badosa es player1 o player2
+    const isBadosaPlayer1 = match.player1.name.includes('Badosa');
+    const badosa = isBadosaPlayer1 ? match.player1 : match.player2;
+    const opponent = isBadosaPlayer1 ? match.player2 : match.player1;
+    
+    // Crear el HTML de la tarjeta
+    card.innerHTML = `
+        <div class="match-header">
+            <div class="tournament-info">
+                <span class="tournament-name">${match.tournament.name}</span>
+                <span class="match-round">${match.round}</span>
+            </div>
+            <div class="match-status ${statusClass}">${statusText}</div>
+        </div>
+        <div class="match-content">
+            <div class="player player1">
+                <div class="player-info">
+                    <div class="player-avatar">
+                        <img src="${badosa.avatar || 'https://ui-avatars.com/api/?name=' + badosa.name.substring(0,2) + '&background=ff9999&color=fff&size=40'}" alt="${badosa.name}">
+                    </div>
+                    <div class="player-details">
+                        <div class="player-name">${badosa.name}</div>
+                        <div class="player-country">
+                            <img src="https://flagcdn.com/16x12/${badosa.countryCode.toLowerCase()}.png" alt="${badosa.country}">
+                            <span>${badosa.country}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="player-score">
+                    ${renderBadosaScore(match.score, isBadosaPlayer1 ? 'player1' : 'player2')}
+                </div>
+            </div>
+            <div class="player player2">
+                <div class="player-info">
+                    <div class="player-avatar">
+                        <img src="${opponent.avatar || 'https://ui-avatars.com/api/?name=' + opponent.name.substring(0,2) + '&background=333&color=fff&size=40'}" alt="${opponent.name}">
+                    </div>
+                    <div class="player-details">
+                        <div class="player-name">${opponent.name}</div>
+                        <div class="player-country">
+                            <img src="https://flagcdn.com/16x12/${opponent.countryCode.toLowerCase()}.png" alt="${opponent.country}">
+                            <span>${opponent.country}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="player-score">
+                    ${renderBadosaScore(match.score, isBadosaPlayer1 ? 'player2' : 'player1')}
+                </div>
+            </div>
+        </div>
+        <div class="match-footer">
+            <div class="match-court"><i class="fas fa-map-marker-alt"></i> ${match.court}</div>
+            <div class="match-time"><i class="far fa-clock"></i> ${formatMatchTime(match.startTime)}</div>
+        </div>
+    `;
+    
+    // Evento para mostrar detalles del partido
+    card.addEventListener('click', function() {
+        showBadosaMatchDetails(match, isBadosaPlayer1);
+    });
+    
+    return card;
+}
+
+// Renderizar puntuación para partidos de Badosa
+function renderBadosaScore(score, player) {
+    // Reutilizamos la misma función que para Alcaraz
+    return renderAlcarazScore(score, player);
+}
+
+// Mostrar detalles del partido de Badosa en el modal
+function showBadosaMatchDetails(match, isBadosaPlayer1) {
+    // Reutilizamos la misma función que para Alcaraz, cambiando los colores
+    const badosa = isBadosaPlayer1 ? match.player1 : match.player2;
+    const opponent = isBadosaPlayer1 ? match.player2 : match.player1;
+    
+    // Determinar el estado del partido
+    let statusClass = '';
+    let statusText = '';
+    
+    if (match.status === 'completed') {
+        statusClass = 'completed';
+        statusText = 'Finalizado';
+    } else if (match.status === 'live') {
+        statusClass = 'live';
+        statusText = 'En Vivo';
+    } else {
+        statusClass = 'upcoming';
+        statusText = 'Próximamente';
+    }
+    
+    // Construir el HTML para los detalles del partido
+    MATCH_DETAILS.innerHTML = `
+        <div class="match-detail-header">
+            <div class="tournament-detail">
+                <h2>${match.tournament.name}</h2>
+                <p>${match.round} - ${match.court}</p>
+            </div>
+            <div class="match-status ${statusClass}">
+                ${statusText}
+            </div>
+        </div>
+        
+        <div class="match-detail-content">
+            <div class="players-container">
+                <div class="player-detail player1">
+                    <div class="player-avatar">
+                        <img src="${badosa.avatar || 'https://ui-avatars.com/api/?name=' + badosa.name.substring(0,2) + '&background=ff9999&color=fff&size=80'}" alt="${badosa.name}">
+                    </div>
+                    <div class="player-info">
+                        <h3>${badosa.name}</h3>
+                        <div class="player-country">
+                            <img src="https://flagcdn.com/16x12/${badosa.countryCode.toLowerCase()}.png" alt="${badosa.country}">
+                            <span>${badosa.country}</span>
+                        </div>
+                        <div class="player-ranking">Ranking: #${badosa.ranking}</div>
+                        <div class="player-seed">Seed: ${badosa.seed || 'N/A'}</div>
+                    </div>
+                </div>
+                
+                <div class="score-detail">
+                    ${renderDetailedAlcarazScore(match.score, isBadosaPlayer1)}
+                </div>
+                
+                <div class="player-detail player2">
+                    <div class="player-avatar">
+                        <img src="${opponent.avatar || 'https://ui-avatars.com/api/?name=' + opponent.name.substring(0,2) + '&background=333&color=fff&size=80'}" alt="${opponent.name}">
+                    </div>
+                    <div class="player-info">
+                        <h3>${opponent.name}</h3>
+                        <div class="player-country">
+                            <img src="https://flagcdn.com/16x12/${opponent.countryCode.toLowerCase()}.png" alt="${opponent.country}">
+                            <span>${opponent.country}</span>
+                        </div>
+                        <div class="player-ranking">Ranking: #${opponent.ranking}</div>
+                        <div class="player-seed">Seed: ${opponent.seed || 'N/A'}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="match-stats">
+                <h3>Estadísticas del Partido</h3>
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>${badosa.name}</th>
+                            <th>Estadística</th>
+                            <th>${opponent.name}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].aces : '-'}</td>
+                            <td>Aces</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].aces : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].doubleFaults : '-'}</td>
+                            <td>Dobles Faltas</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].doubleFaults : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].firstServePercentage + '%' : '-'}</td>
+                            <td>% Primer Servicio</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].firstServePercentage + '%' : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].winners : '-'}</td>
+                            <td>Winners</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].winners : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].unforcedErrors : '-'}</td>
+                            <td>Errores No Forzados</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].unforcedErrors : '-'}</td>
+                        </tr>
+                        <tr>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player1' : 'player2'].totalPointsWon : '-'}</td>
+                            <td>Total de Puntos Ganados</td>
+                            <td>${match.stats ? match.stats[isBadosaPlayer1 ? 'player2' : 'player1'].totalPointsWon : '-'}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+    
+    // Mostrar el modal
+    MATCH_MODAL.style.display = 'block';
+}
 
