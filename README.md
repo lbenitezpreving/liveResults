@@ -1,24 +1,31 @@
-# Tennis Live - Resultados de Tenis en Vivo
+# Live Sports - Resultados Deportivos en Vivo
 
-Una aplicación web moderna para visualizar resultados de partidos de tenis en vivo de los torneos Grand Slam (Australian Open, Roland Garros, Wimbledon y US Open).
+Una aplicación web moderna para visualizar resultados deportivos en vivo, enfocada en tenis (torneos Grand Slam) y Fórmula 1.
 
-![Tennis Live Preview](https://via.placeholder.com/800x400?text=Tennis+Live+Preview)
+![Live Sports Preview](https://via.placeholder.com/800x400?text=Live+Sports+Preview)
 
 ## Características
 
+### Tenis
 - Visualización de partidos en vivo con diseño moderno y atractivo
-- Filtrado por torneos Grand Slam
+- Filtrado por torneos Grand Slam (Australian Open, Roland Garros, Wimbledon y US Open)
 - Detalles completos de cada partido al hacer clic en una tarjeta
 - Estadísticas detalladas de los jugadores
-- Diseño responsive para todos los dispositivos
-- Iconografía relacionada con el tenis
 - Actualización periódica de resultados
+
+### Fórmula 1
+- Seguimiento de carreras en vivo con visualización del circuito
+- Posiciones actuales de los pilotos
+- Telemetría en tiempo real
+- Estadísticas de la carrera
+- Información detallada de pilotos y circuitos
 
 ## Tecnologías utilizadas
 
 - HTML5
 - CSS3 (con variables CSS, Flexbox y Grid)
 - JavaScript (ES6+)
+- Chart.js para gráficos de telemetría
 - Font Awesome para iconos
 - Google Fonts
 - API de banderas (flagcdn.com)

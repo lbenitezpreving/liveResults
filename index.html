@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Sports - Resultados Deportivos en Vivo</title>
+    <title>Live Sports - Tenis y Fórmula 1 en Vivo</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,14 +23,6 @@
                 <i class="fas fa-flag-checkered"></i>
                 <span>Fórmula 1</span>
             </li>
-            <li class="sport-item" data-sport="football">
-                <i class="fas fa-futbol"></i>
-                <span>Fútbol</span>
-            </li>
-            <li class="sport-item" data-sport="basketball">
-                <i class="fas fa-basketball-ball"></i>
-                <span>Baloncesto</span>
-            </li>
         </ul>
     </div>
 
@@ -42,21 +34,18 @@
                     <i class="fas fa-tennis-ball"></i>
                     <h1>Tennis Live</h1>
                 </div>
-                <nav>
-                    <ul>
-                        <li class="active" data-tournament="all">Todos</li>
-                        <li data-tournament="australian-open">Australian Open</li>
-                        <li data-tournament="roland-garros">Roland Garros</li>
-                        <li data-tournament="wimbledon">Wimbledon</li>
-                        <li data-tournament="us-open">US Open</li>
-                    </ul>
-                </nav>
+                <div class="player-search">
+                    <button id="alcaraz-button" class="player-button">
+                        <img src="https://ui-avatars.com/api/?name=CA&background=ffcc00&color=333&size=20" alt="Carlos Alcaraz">
+                        Carlos Alcaraz
+                    </button>
+                </div>
             </header>
 
             <main>
                 <div class="tournament-banner">
-                    <h2>Partidos en Vivo - Grand Slam</h2>
-                    <p>Disfruta de los mejores partidos de tenis en tiempo real</p>
+                    <h2>Carlos Alcaraz - Partidos</h2>
+                    <p>Sigue los partidos del tenista español número 2 del mundo</p>
                 </div>
 
                 <div class="matches-container">
@@ -113,7 +102,7 @@
                             <span class="race-status">En Vivo - Vuelta <span id="current-lap">32</span>/<span id="total-laps">66</span></span>
                         </div>
                         <div class="race-circuit">
-                            <img id="circuit-layout" src="https://via.placeholder.com/200x100?text=Circuit+Layout" alt="Trazado del circuito">
+                            <img id="circuit-layout" src="https://ui-avatars.com/api/?name=F1&background=e10600&color=fff&size=200x100" alt="Trazado del circuito">
                             <div class="circuit-info">
                                 <p><i class="fas fa-map-marker-alt"></i> <span id="circuit-name">Circuit de Barcelona-Catalunya</span></p>
                                 <p><i class="fas fa-ruler-horizontal"></i> <span id="circuit-length">4.675 km</span></p>
@@ -198,7 +187,7 @@
                         <h3>Enfoque en Piloto</h3>
                         <div class="driver-focus-content">
                             <div class="driver-image">
-                                <img src="https://via.placeholder.com/150x150?text=Driver" alt="Piloto seleccionado">
+                                <img src="https://ui-avatars.com/api/?name=LH&background=00d2be&color=fff&size=150" alt="Piloto seleccionado">
                             </div>
                             <div class="driver-info">
                                 <h4 id="focus-driver-name">Lewis Hamilton</h4>
@@ -272,6 +261,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    <script src="tennis.js"></script>
     <script src="f1.js"></script>
     <script src="f1api.js"></script>
 </body>

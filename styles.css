@@ -1163,4 +1163,46 @@ footer {
     .drivers-grid, .circuits-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Estilos para la sección de tenis */
+#tennis-section header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Botón de búsqueda de jugador */
+.player-search {
+    margin-left: auto;
+}
+
+.player-button {
+    display: flex;
+    align-items: center;
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.player-button:hover {
+    background-color: #e6b800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player-button img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
 } 
